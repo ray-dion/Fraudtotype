@@ -1,0 +1,51 @@
+DDL Syntax
+- Copy the dataset csv file to PostgreSQL
+docker cp DatosPrueba.csv postgres:/DatosPrueba.csv
+
+- Access the container
+docker exec -it postgres bash
+
+- Access PostgreSQL
+psql -U postgres
+
+- Create new database for the project
+CREATE DATABASE finpro_hck_025;
+- Access database
+\c finpro_hck_025
+
+- Create a new table for raw data
+CREATE TABLE table_finpro (
+    Unnamed_01 INTEGER,
+    Unnamed_0 INTEGER,
+    trans_date_trans_time TIMESTAMP,
+    cc_num BIGINT,
+    merchant TEXT,
+    category TEXT,
+    amt TEXT,
+    first TEXT,
+    last TEXT,
+    gender TEXT,
+    street TEXT,
+    city TEXT,
+    state TEXT,
+    zip INTEGER,
+    lat TEXT,
+    long TEXT,
+    city_pop INTEGER,
+    job TEXT,
+    dob DATE,
+    trans_num TEXT,
+    unix_time INTEGER,
+    merch_lat TEXT,
+    merch_long TEXT,
+    is_fraud INTEGER
+);
+
+DML Syntax
+- Import data from csv file to table_finpro
+COPY table_finpro
+FROM '/DatosPrueba.csv'
+DELIMITER ';' CSV HEADER;
+
+- Preview the table
+SELECT * FROM table_finpro LIMIT 10;
